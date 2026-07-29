@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Administration Dashboard</title>
-  <link rel="stylesheet" href="/administration.css">
+  <link rel="stylesheet" href="administration.css">
 </head>
 <body>
 
@@ -28,6 +28,28 @@
       <div class="search-container">
         <input type="text" class="search-input" placeholder="Search...">
       </div>
+      <!-- ═══ QUICK ACTIONS TRIGGER (30×30px) ═════════════════ -->
+      <div class="quick-actions-trigger" id="quickActionsTrigger" aria-label="Quick Actions" title="Quick Actions">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="5"  r="1.5" fill="currentColor"/>
+          <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
+          <circle cx="12" cy="19" r="1.5" fill="currentColor"/>
+        </svg>
+      </div>
+      <!-- ═══ QUICK ACTIONS DROPDOWN ════════════════════════════ -->
+      <div class="quick-actions-dropdown" id="quickActionsDropdown" role="menu">
+        <ul class="quick-actions-list">
+          <li class="quick-actions-item" data-page-id="activate-user" role="menuitem">Activation</li>
+          <li class="quick-actions-item" data-page-id="users" role="menuitem">Customers</li>
+          <li class="quick-actions-item" data-page-id="prepaid-users" role="menuitem">Prepaid Users</li>
+          <li class="quick-actions-item" data-page-id="routers" role="menuitem">Routers</li>
+          <li class="quick-actions-item" data-page-id="online-users" role="menuitem">Online Users</li>
+          <li class="quick-actions-item" data-page-id="active-sessions" role="menuitem">Active Sessions</li>
+          <li class="quick-actions-separator" role="separator">
+            <a href="data-page.html?page=general-settings" class="quick-actions-manage" role="menuitem">Manage Quick Actions</a>
+          </li>
+        </ul>
+      </div>
     </div>
     <div class="header-right">
       <svg class="notification-bell" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -42,6 +64,14 @@
       </div>
     </div>
   </header>
+
+  <!-- ═══ FAVOURITES LIMIT NOTIFICATION MODAL ══════════════════ -->
+  <div id="favLimitModal" class="fav-limit-modal" role="alert" aria-live="assertive">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="fav-limit-icon">
+      <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <span>Favourites limit reached! You can only save up to 8 favourites.</span>
+  </div>
 
   <!-- ═══ WRAPPER ═══════════════════════════════════════════════ -->
   <div class="admin-wrapper">
@@ -84,6 +114,6 @@
     </div>
   </footer>
 
-  <script src="/administration.js"></script>
+  <script src="administration.js"></script>
 </body>
 </html>
