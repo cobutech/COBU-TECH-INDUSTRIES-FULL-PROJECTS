@@ -935,14 +935,23 @@ document.addEventListener('DOMContentLoaded', () => {
   const favCloseBtn       = document.getElementById('favoritesCloseBtn');
 
   /* ── open / close sidebar ── */
-  function openSidebar()  { sidebarPanel?.classList.add('open'); }
-  function closeSidebar() { sidebarPanel?.classList.remove('open'); }
-  navToggleBtn?.addEventListener('click', e => { e.stopPropagation(); openSidebar(); });
+  function openSidebar()  { sidebarPanel?.classList.add('is-open'); }
+  function closeSidebar() { sidebarPanel?.classList.remove('is-open'); }
+
+  /* Requirement 4: true toggle — checks current state, adds is-open to open, removes to close */
+  navToggleBtn?.addEventListener('click', e => {
+    e.stopPropagation();
+    if (sidebarPanel?.classList.contains('is-open')) {
+      closeSidebar();
+    } else {
+      openSidebar();
+    }
+  });
   closePanelBtn?.addEventListener('click', e => { e.stopPropagation(); closeSidebar(); });
 
   /* ── close sidebar on overlay tap (mobile) ── */
   document.addEventListener('click', e => {
-    if (sidebarPanel?.classList.contains('open') &&
+    if (sidebarPanel?.classList.contains('is-open') &&
         !sidebarPanel.contains(e.target) &&
         e.target !== navToggleBtn) {
       closeSidebar();
@@ -977,6 +986,19 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ── Favourites limit notification modal ── */
+  const favLimitModal = document.getElementById('favLimitModal');
+  let favLimitTimer = null;
+  function showFavLimitModal() {
+    if (!favLimitModal) return;
+    favLimitModal.classList.add('is-visible');
+    if (favLimitTimer) clearTimeout(favLimitTimer);
+    favLimitTimer = setTimeout(() => {
+      favLimitModal.classList.remove('is-visible');
+      favLimitTimer = null;
+    }, 3000);
+  }
+
   /* ── Stars ── */
   function renderFavouritesList() {
     if (!favoritesList) return;
@@ -986,14 +1008,30 @@ document.addEventListener('DOMContentLoaded', () => {
       favoritesList.innerHTML = favourites.map(f => `
         <div class="favorite-nav-item" data-page-id="${f.id}">
           <svg class="fav-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          ${f.label}
+          <span class="fav-label">${f.label}</span>
+          <button class="fav-remove-btn" data-fav-id="${f.id}" title="Remove from favourites" aria-label="Remove ${f.label} from favourites">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>`).join('');
+
+      /* Navigation click — do not fire when clicking the remove button */
       favoritesList.querySelectorAll('.favorite-nav-item').forEach(el => {
         el.addEventListener('click', () => {
           const pid2 = el.dataset.pageId;
           if (pid2) navigateTo(pid2);
           hideFavourites();
           closeSidebar();
+        });
+      });
+
+      /* Requirement 1 remove button — X click removes specific item */
+      favoritesList.querySelectorAll('.fav-remove-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+          e.stopPropagation(); /* prevent nav click from firing */
+          const favId = btn.dataset.favId;
+          removeFavourite(favId);
+          document.querySelectorAll(`.star-icon[data-page-id="${favId}"]`).forEach(s => s.classList.remove('starred'));
+          renderFavouritesList();
         });
       });
     }
@@ -1009,6 +1047,11 @@ document.addEventListener('DOMContentLoaded', () => {
         removeFavourite(pid2);
         document.querySelectorAll(`.star-icon[data-page-id="${pid2}"]`).forEach(s => s.classList.remove('starred'));
       } else {
+        /* Requirement 1 & 2: enforce 8-item limit, show modal if exceeded */
+        if (favourites.length >= 8) {
+          showFavLimitModal();
+          return;
+        }
         addFavourite(pid2, label);
         document.querySelectorAll(`.star-icon[data-page-id="${pid2}"]`).forEach(s => s.classList.add('starred'));
       }
@@ -1060,6 +1103,40 @@ document.addEventListener('DOMContentLoaded', () => {
       if (isFavourite(star.dataset.pageId)) star.classList.add('starred');
     });
   }
+
+  /* ── Quick Actions dropdown (Requirement 5 & 6) ── */
+  const quickActionsTrigger  = document.getElementById('quickActionsTrigger');
+  const quickActionsDropdown = document.getElementById('quickActionsDropdown');
+
+  function openQuickActions()  { quickActionsDropdown?.classList.add('is-open'); }
+  function closeQuickActions() { quickActionsDropdown?.classList.remove('is-open'); }
+
+  quickActionsTrigger?.addEventListener('click', e => {
+    e.stopPropagation();
+    if (quickActionsDropdown?.classList.contains('is-open')) {
+      closeQuickActions();
+    } else {
+      openQuickActions();
+    }
+  });
+
+  /* Click-outside listener closes Quick Actions dropdown */
+  document.addEventListener('click', e => {
+    if (quickActionsDropdown?.classList.contains('is-open') &&
+        !quickActionsDropdown.contains(e.target) &&
+        e.target !== quickActionsTrigger &&
+        !quickActionsTrigger?.contains(e.target)) {
+      closeQuickActions();
+    }
+  });
+
+  /* Wire up Quick Actions list items to navigate */
+  document.querySelectorAll('.quick-actions-item[data-page-id]').forEach(item => {
+    item.addEventListener('click', () => {
+      navigateTo(item.dataset.pageId);
+      closeQuickActions();
+    });
+  });
 
   /* ── Dashboard-only initialisation ── */
   if (!IS_DATA_PAGE) {
