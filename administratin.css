@@ -50,7 +50,7 @@ body {
 .header-main { display: flex; flex-direction: column; flex: 1; }
 .brand-title { height: 30px; margin-top: 10px; font-size: 1rem; font-weight: 600; letter-spacing: 1px; color: #fff; line-height: 30px; }
 .search-container {
-  position: relative; height: 20px; margin-top: 20px; width: 50%;
+  position: relative; height: 20px; margin-top: 20px; width: 60%;
   border-radius: 10px; padding: 1.5px;
   background: linear-gradient(90deg,#ff0055,#7f00ff,#00bfff,#ff00aa,#ffcc00,#ff0055);
   background-size: 400%; animation: rainbow-shift 8s linear infinite;
@@ -134,17 +134,17 @@ body {
   z-index: 11; pointer-events: none;
 }
 @media (max-width: 767px) {
-  .sidebar-panel { width: 85%; margin-left: -85%; }
-  .sidebar-panel.open { margin-left: 0; }
+  .sidebar-panel { width: 60%; margin-left: -60%; }
+  .sidebar-panel.is-open { margin-left: 0; }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
-  .sidebar-panel { width: 35%; margin-left: -35%; }
-  .sidebar-panel.open { margin-left: 0; }
+  .sidebar-panel { width: 60%; margin-left: -60%; }
+  .sidebar-panel.is-open { margin-left: 0; }
 }
 @media (min-width: 1200px) {
-  .sidebar-panel { width: 280px; margin-left: -280px; }
-  .sidebar-panel.open { margin-left: 0; }
-  .sidebar-panel.open + .main-content { flex-shrink: 1; }
+  .sidebar-panel { width: 60%; margin-left: -60%; }
+  .sidebar-panel.is-open { margin-left: 0; }
+  .sidebar-panel.is-open + .main-content { flex-shrink: 1; }
 }
 
 .main-content { flex: 1; width: 100%; flex-shrink: 0; transition: margin-left .4s cubic-bezier(.25,.8,.25,1), width .4s cubic-bezier(.25,.8,.25,1); overflow-y: auto; }
@@ -825,4 +825,194 @@ body {
   }
 }
 
+/* ═══════════════════════════════════════════════════════════
+   REQUIREMENT 1 — FAVOURITES SMOOTH DROPDOWN
+   ═══════════════════════════════════════════════════════════ */
+.favorites-dropdown {
+  display: block;           /* override the original display:none */
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: max-height .35s cubic-bezier(.25,.8,.25,1),
+              opacity .25s ease,
+              visibility 0s linear .35s;
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  background-color: #0c1a30;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+  z-index: 50;
+  box-shadow: 0 8px 24px rgba(0,0,0,.4);
+}
+.favorites-dropdown.show {
+  max-height: 400px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: max-height .35s cubic-bezier(.25,.8,.25,1),
+              opacity .25s ease,
+              visibility 0s linear 0s;
+}
+
+/* ─── FAVOURITES remove (X) button ──────────────────────── */
+.fav-label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fav-remove-btn {
+  flex-shrink: 0;
+  background: none;
+  border: 1px solid transparent;
+  color: #64748b;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0;
+  transition: color .2s ease, border-color .2s ease, background-color .2s ease;
+}
+.fav-remove-btn svg { width: 12px; height: 12px; pointer-events: none; }
+.fav-remove-btn:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+  background-color: rgba(239,68,68,.1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   REQUIREMENT 2 — FAVOURITES LIMIT NOTIFICATION MODAL
+   Positioned absolutely just below the admin header
+   ═══════════════════════════════════════════════════════════ */
+.fav-limit-modal {
+  position: fixed;
+  top: 100px;          /* sits directly below the 100px header */
+  left: 50%;
+  transform: translateX(-50%) translateY(-12px);
+  z-index: 9999;
+  background-color: #1a0c00;
+  border: 1px solid #cc6600;
+  border-radius: 8px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #ffcc00;
+  font-size: .85rem;
+  font-weight: 500;
+  box-shadow: 0 8px 30px rgba(0,0,0,.5), 0 0 20px rgba(204,102,0,.25);
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity .25s ease,
+              visibility 0s linear .25s,
+              transform .25s cubic-bezier(.25,.8,.25,1);
+}
+.fav-limit-modal.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity .25s ease,
+              visibility 0s linear 0s,
+              transform .25s cubic-bezier(.25,.8,.25,1);
+}
+.fav-limit-icon { width: 18px; height: 18px; color: #ffcc00; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════════════════
+   REQUIREMENT 5 & 6 — QUICK ACTIONS TRIGGER + DROPDOWN
+   ═══════════════════════════════════════════════════════════ */
+
+/* Requirement 5 — strict 30×30px trigger button in header-main */
+.header-main { position: relative; }
+
+.quick-actions-trigger {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  margin-top: 8px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 1px solid #1e293b;
+  background-color: #0a192f;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
+}
+.quick-actions-trigger svg {
+  width: 14px; height: 14px;
+  color: #8892b0;
+  pointer-events: none;
+  transition: color .2s ease;
+}
+.quick-actions-trigger:hover {
+  border-color: #00f0ff;
+  background-color: #0c1a30;
+  box-shadow: 0 0 8px rgba(0,240,255,.2);
+}
+.quick-actions-trigger:hover svg { color: #00f0ff; }
+
+/* Requirement 6 — absolutely positioned dropdown below the 30×30px button */
+.quick-actions-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);   /* just below the header-main bottom edge */
+  left: 0;
+  min-width: 200px;
+  background-color: #0c1a30;
+  border: 1px solid #1e293b;
+  border-radius: 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.45);
+  z-index: 5000;
+  overflow: hidden;
+  /* hidden state */
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: max-height .3s cubic-bezier(.25,.8,.25,1),
+              opacity .2s ease,
+              visibility 0s linear .3s;
+}
+.quick-actions-dropdown.is-open {
+  max-height: 320px;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: max-height .3s cubic-bezier(.25,.8,.25,1),
+              opacity .2s ease,
+              visibility 0s linear 0s;
+}
+.quick-actions-list {
+  list-style: none;
+  margin: 0; padding: 6px 0;
+}
+.quick-actions-item {
+  padding: 9px 16px;
+  font-size: .84rem;
+  color: #a0aec0;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+  white-space: nowrap;
+}
+.quick-actions-item:hover {
+  background-color: rgba(0,240,255,.07);
+  color: #fff;
+}
+.quick-actions-separator {
+  border-top: 1px solid #1e293b;
+  margin-top: 4px;
+  padding-top: 4px;
+}
+.quick-actions-manage {
+  display: block;
+  padding: 9px 16px;
+  font-size: .82rem;
+  color: #00f0ff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background .2s ease, color .2s ease;
+  white-space: nowrap;
+}
+.quick-actions-manage:hover {
+  background-color: rgba(0,240,255,.07);
+  color: #fff;
+}
 
