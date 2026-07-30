@@ -1,0 +1,240 @@
+/* --- Base Styles --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #0f111a;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* --- Rainbow Glow Animation --- */
+@keyframes rainbow-glow {
+  0% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; }
+  17% { border-color: #ff7f00; box-shadow: 0 0 8px #ff7f00; }
+  33% { border-color: #ffff00; box-shadow: 0 0 8px #ffff00; }
+  50% { border-color: #00ff00; box-shadow: 0 0 8px #00ff00; }
+  67% { border-color: #0000ff; box-shadow: 0 0 8px #0000ff; }
+  84% { border-color: #8b00ff; box-shadow: 0 0 8px #8b00ff; }
+  100% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; }
+}
+
+.glowing-border {
+  border: 2px solid transparent;
+  animation: rainbow-glow 6s linear infinite;
+}
+
+.glowing-container {
+  border: 2px solid transparent;
+  border-radius: 8px;
+  animation: rainbow-glow 6s linear infinite;
+  background-color: #1a1d29;
+}
+
+/* --- Header Styling (Fixed 100px Height) --- */
+.app-header {
+  height: 100px;
+  background-color: #141722;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap; /* Forces side-by-side alignment on all screens */
+  gap: 12px;
+  width: 100%;
+  overflow-x: auto; /* Allows smooth touch horizontal scrolling on small screens */
+  padding-bottom: 4px;
+}
+
+/* Hide scrollbar for header scrollability */
+.header-content::-webkit-scrollbar {
+  display: none;
+}
+.header-content {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.header-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  height: 60px;
+}
+
+/* 1. Sidebar Toggle Button */
+.btn-icon {
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  margin-left: 2px;
+  width: 50px;
+  height: 40px;
+}
+.btn-icon:hover {
+  background-color: #252a3a;
+}
+
+/* 2. Logo Container */
+.logo-container {
+  border-radius: 50% !important; /* Forces container circle */
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  overflow: hidden;
+}
+.circular-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* 3. Website Name */
+.brand-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  height: 40px;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  color: #00d2d3;
+}
+
+/* 4. Search Bar */
+.search-container {
+  flex-grow: 1;
+  width: 50px;
+  height: 40px;
+  padding: 0px 5px;
+  display: flex;
+  align-items: center;
+}
+.search-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 0.95rem;
+}
+.search-btn {
+  background: transparent;
+  border: none;
+  color: #8a8d9b;
+  cursor: pointer;
+}
+
+/* 5. Notification Bell (Yellow CSS SVG) */
+.notification-container {
+  position: relative;
+  width: 50px;
+  height: 40px;
+  cursor: pointer;
+}
+.bell-icon {
+  stroke: #ffdd59; /* Coded Yellow Color */
+  fill: #ffdd59;
+  fill-opacity: 0.2;
+}
+.notification-badge {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background-color: #ff3f34;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 2px 6px;
+}
+
+/* 6. Admin Profile Picture */
+.profile-container {
+  border-radius: 50% !important;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+.circular-profile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* --- Body Layout --- */
+.app-body {
+  display: flex;
+  flex: 1;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #141722;
+  padding: 20px 10px;
+  transition: transform 0.3s ease;
+}
+.sidebar.collapsed {
+  transform: translateX(-100%);
+  position: absolute;
+}
+.sidebar-nav ul {
+  list-style: none;
+}
+.sidebar-nav li a {
+  display: block;
+  padding: 12px 15px;
+  color: #a0a5b5;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+.sidebar-nav li a:hover,
+.sidebar-nav li a.active {
+  background-color: #252a3a;
+  color: #00d2d3;
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+.content-card {
+  background-color: #141722;
+  padding: 30px;
+  border-radius: 10px;
+}
+
+/* --- Footer --- */
+.app-footer {
+  height: 60px;
+  background-color: #141722;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: #7f8c8d;
+}
+
+
