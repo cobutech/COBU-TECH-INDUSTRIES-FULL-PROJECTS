@@ -71,6 +71,7 @@ body {
 /* Square Web Logo (70px x 70px) */
 .logo-container {
   width: 70px;
+  margin-left: 10px;
   height: 50px;
   overflow: hidden;
   padding: 0;
@@ -172,6 +173,7 @@ body {
   align-items: center;
   justify-content: center;
   padding: 2px;
+  margin-right: 10px;
 }
 
 .bell-icon {
@@ -195,7 +197,7 @@ body {
 /* Admin Profile Picture (20px Gap Below Bell, 2px Right Margin) */
 .profile-container {
   margin-top: 20px;
-  margin-right: 2px;
+  margin-right: 10px;
   width: 45px;
   height: 45px;
   border-radius: 50% !important;
@@ -274,4 +276,3 @@ body {
   color: #7f8c8d;
   border-top: 1px solid #142042;
 }
-
