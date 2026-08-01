@@ -1,0 +1,752 @@
+/* --- Base Styles --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Whole Page Dark Blue Background */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #060c1e; /* Deep Dark Blue */
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* --- Rainbow Glow Animations --- */
+@keyframes rainbow-glow {
+  0% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; }
+  17% { border-color: #ff7f00; box-shadow: 0 0 8px #ff7f00; }
+  33% { border-color: #ffff00; box-shadow: 0 0 8px #ffff00; }
+  50% { border-color: #00ff00; box-shadow: 0 0 8px #00ff00; }
+  67% { border-color: #0000ff; box-shadow: 0 0 8px #0000ff; }
+  84% { border-color: #8b00ff; box-shadow: 0 0 8px #8b00ff; }
+  100% { border-color: #ff0000; box-shadow: 0 0 8px #ff0000; }
+}
+
+@keyframes sidebar-right-glow {
+  0% { border-right-color: #ff0000; box-shadow: 3px 0 8px -1px #ff0000; }
+  17% { border-right-color: #ff7f00; box-shadow: 3px 0 8px -1px #ff7f00; }
+  33% { border-right-color: #ffff00; box-shadow: 3px 0 8px -1px #ffff00; }
+  50% { border-right-color: #00ff00; box-shadow: 3px 0 8px -1px #00ff00; }
+  67% { border-right-color: #0000ff; box-shadow: 3px 0 8px -1px #0000ff; }
+  84% { border-right-color: #8b00ff; box-shadow: 3px 0 8px -1px #8b00ff; }
+  100% { border-right-color: #ff0000; box-shadow: 3px 0 8px -1px #ff0000; }
+}
+
+/* Glowing container style for header features */
+.glowing-container {
+  border: 2px solid transparent;
+  border-radius: 8px;
+  animation: rainbow-glow 6s linear infinite;
+  background-color: #0d1730;
+}
+
+/* --- Header Base (Height: 130px) --- */
+.app-header {
+  height: 120px;
+  background-color: #0a1128;
+  position: relative;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #142042;
+}
+
+/* --- Left Section (Logo + Sidebar Button) --- */
+.header-left {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* Square Web Logo (70px x 70px) */
+.logo-container {
+  width: 70px;
+  margin-left: 10px;
+  height: 50px;
+  overflow: hidden;
+  padding: 0;
+  border-radius: 8px !important;
+}
+
+.square-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Sidebar Button Container */
+.sidebar-btn-container {
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  margin-left: 10px;
+}
+
+.sidebar-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Center Section (Brand Name + Search Bar) --- */
+.header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Brand Title (5px Gap from Top, No Container) */
+.brand-title {
+  margin-top: 15px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  color: #00d2d3;
+}
+
+/* Search Bar (Width: 100px) */
+.search-container {
+  margin-top: 18px;
+  width: 150px;
+  height: 20px;
+  padding: 0 3px;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-size: 0.75rem;
+}
+
+.search-btn {
+  background: transparent;
+  border: none;
+  color: #8a8d9b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+/* --- Right Section (Notification Bell + Profile Picture) --- */
+.header-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* Unenclosed Notification Bell (2px Top & Right Gap) */
+.notification-wrapper {
+  margin-top: 10px;
+  margin-right: 2px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  margin-right: 10px;
+}
+
+.bell-icon {
+  stroke: #ffdd59; /* Coded Yellow Color */
+  fill: #ffdd59;
+  fill-opacity: 0.2;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: #ff3f34;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 1px 4px;
+}
+
+/* Admin Profile Picture (20px Gap Below Bell, 2px Right Margin) */
+.profile-container {
+  margin-top: 20px;
+  margin-right: 10px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50% !important;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.circular-profile {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* --- Body Layout --- */
+.app-body {
+  display: flex;
+  flex: 1;
+}
+
+/* Sidebar with Glowing Right Boundary Line */
+.sidebar {
+  width: 220px;
+  background-color: #0a1128;
+  padding: 20px 10px;
+  transition: margin-left 0.3s ease;
+  border-right: 2px solid transparent;
+  animation: sidebar-right-glow 6s linear infinite;
+}
+
+/* Closed / Collapsed State by Default */
+.sidebar.collapsed {
+  margin-left: -220px;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+}
+
+.sidebar-nav li a {
+  display: block;
+  padding: 12px 15px;
+  color: #a0a5b5;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.sidebar-nav li a:hover,
+.sidebar-nav li a.active {
+  background-color: #142042;
+  color: #00d2d3;
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.content-card {
+  background-color: #0a1128;
+  padding: 30px;
+  border-radius: 10px;
+  border: 1px solid #142042;
+}
+
+/* --- Footer --- */
+.app-footer {
+  height: 60px;
+  background-color: #0a1128;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: #7f8c8d;
+  border-top: 1px solid #142042;
+}
+
+/* --- Quick Action Button & Dropdown Styles --- */
+.quick-action-wrapper {
+  margin-top: 18px; /* Gap positioned below search bar */
+  width: 80px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.quick-action-btn {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 2px;
+}
+
+.qa-bolt {
+  color: #ffdd59;
+}
+
+.qa-arrow {
+  font-size: 0.5rem;
+  color: #8a8d9b;
+}
+
+/* Dropdown Menu (Matches your image sample) */
+.quick-action-dropdown {
+  display: none;
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  background-color: #0b1329;
+  border: 1px solid #1c2a4e;
+  border-radius: 6px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  padding: 8px 0;
+}
+
+.quick-action-dropdown.active {
+  display: block;
+}
+
+.qa-dropdown-header {
+  padding: 6px 12px;
+  font-size: 0.7rem;
+  color: #636e72;
+  font-weight: 600;
+}
+
+.qa-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  color: #dcdde1;
+  text-decoration: none;
+  font-size: 0.75rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.qa-dropdown-item:hover {
+  background-color: #14244d;
+  color: #00d2d3;
+}
+
+.qa-dropdown-item svg {
+  color: #8a8d9b;
+}
+
+.qa-dropdown-item:hover svg {
+  color: #00d2d3;
+}
+
+.qa-divider {
+  height: 1px;
+  background-color: #1c2a4e;
+  margin: 6px 0;
+}
+/* ==========================================================================
+   SIDEBAR COMPONENT STYLES (MATCHING IMAGE SPECIFICATIONS)
+   ========================================================================== */
+
+/* Enable Scrolling inside Sidebar */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: calc(100vh - 130px);
+}
+
+/* Custom Scrollbar for Sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: #0a1128;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: #1c2a4e;
+  border-radius: 4px;
+}
+
+/* 1. Sidebar Search Input Box */
+.sidebar-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #0b1426;
+  border: 1px solid #1c2b4a;
+  border-radius: 4px;
+  padding: 6px 10px;
+  margin-bottom: 12px;
+}
+
+.sidebar-search-box svg {
+  color: #636e72;
+  flex-shrink: 0;
+}
+
+#sidebar-menu-search {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #a0a5b5;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+#sidebar-menu-search::placeholder {
+  color: #636e72;
+}
+
+/* 2. Sidebar Menu List */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-item {
+  margin-bottom: 2px;
+}
+
+/* Link Base Style */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 10px;
+  color: #a0a5b5;
+  text-decoration: none;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+  background-color: #142042;
+  color: #ffffff;
+}
+
+.sidebar-link-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-icon {
+  stroke: #8a8d9b;
+  flex-shrink: 0;
+}
+
+.sidebar-link:hover .sidebar-icon,
+.sidebar-link.active .sidebar-icon {
+  stroke: #00d2d3;
+}
+
+.sidebar-title {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.sidebar-link-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Arrow Styling */
+.sidebar-arrow {
+  font-size: 0.75rem;
+  color: #576574;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+  transform: rotate(0deg);
+}
+
+/* Rotates Arrow down when sub-menu is expanded */
+.sidebar-item.expanded .sidebar-arrow {
+  transform: rotate(-90deg);
+}
+
+/* Green [New] Badge */
+.badge-green {
+  background-color: #00b894;
+  color: #ffffff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+
+/* 3. Submenu Drawer */
+.sidebar-submenu {
+  display: none;
+  list-style: none;
+  padding-left: 36px;
+  margin-top: 2px;
+  margin-bottom: 4px;
+}
+
+.sidebar-item.expanded .sidebar-submenu {
+  display: block;
+}
+
+.sidebar-submenu li a {
+  display: block;
+  padding: 6px 0;
+  color: #7f8c8d;
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sidebar-submenu li a:hover {
+  color: #00d2d3;
+}
+/* ==========================================================================
+   SIDEBAR & FAVORITES SPECIFIC STYLES
+   ========================================================================== */
+
+/* 1. Submenu Row Layout with Star/Delete Buttons */
+.submenu-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.submenu-item-row a {
+  color: #a0a5b5;
+  font-size: 0.78rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.submenu-item-row a:hover {
+  color: #00d2d3;
+}
+
+.inline-badge {
+  font-size: 0.55rem;
+  padding: 0 4px;
+}
+
+/* 2. Star Icon Styling */
+.star-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.star-btn svg {
+  fill: none;
+  stroke: #576574;
+  stroke-width: 2;
+  transition: fill 0.2s ease, stroke 0.2s ease;
+}
+
+.star-btn:hover svg {
+  stroke: #f1c40f;
+}
+
+/* Active Star State (Yellow) */
+.star-btn.active svg {
+  fill: #f1c40f;
+  stroke: #f1c40f;
+}
+
+/* 3. Favorites Remove Button (x) */
+.fav-remove-btn {
+  background: transparent;
+  border: none;
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 6px;
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.fav-remove-btn:hover {
+  color: #ee5253;
+  transform: scale(1.2);
+}
+
+.empty-favs {
+  font-size: 0.72rem;
+  color: #576574;
+  font-style: italic;
+  padding: 6px 0;
+}
+
+/* 4. Nested 2nd-Level Dropdowns */
+.sidebar-nested-item {
+  margin: 4px 0;
+}
+
+.sidebar-nested-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #c8d6e5;
+  font-size: 0.78rem;
+  text-decoration: none;
+  padding: 4px 0;
+  font-weight: 500;
+}
+
+.nested-arrow {
+  font-size: 0.7rem;
+  color: #576574;
+  transition: transform 0.2s ease;
+}
+
+.sidebar-nested-item.expanded > .sidebar-nested-link .nested-arrow {
+  transform: rotate(-90deg);
+}
+
+.sidebar-nested-submenu {
+  display: none;
+  list-style: none;
+  padding-left: 14px;
+  margin-top: 2px;
+  border-left: 1px solid #1c2b4a;
+}
+
+.sidebar-nested-item.expanded > .sidebar-nested-submenu {
+  display: block;
+}
+/* --- BACK BUTTON STYLES --- */
+.card-action-bar {
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background-color: rgba(0, 123, 255, 0.08);
+  border: 1px solid rgba(0, 123, 255, 0.25);
+  transition: all 0.2s ease-in-out;
+}
+
+.back-btn:hover {
+  background-color: rgba(0, 123, 255, 0.2);
+  color: #3395ff;
+  border-color: rgba(0, 123, 255, 0.5);
+  transform: translateX(-4px); /* Subtle slide to the left on hover */
+}
+/* --- TOAST NOTIFICATION MODEL --- */
+.toast-notification {
+  position: fixed;
+  top: 75px; /* Positioned directly below header */
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background-color: #1e293b;
+  color: #ffffff;
+  border: 1px solid #334155;
+  border-left: 4px solid #007bff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.toast-notification.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Star Button & Fav Remove Styles Sync */
+.star-btn {
+  background: transparent;
+  border: none;
+  color: #64748b;
+  cursor: pointer;
+  padding: 2px;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.star-btn fill {
+  fill: transparent;
+}
+
+.star-btn:hover {
+  color: #f59e0b;
+  transform: scale(1.15);
+}
+
+.star-btn.active {
+  color: #f59e0b;
+}
+
+.star-btn.active svg {
+  fill: #f59e0b;
+}
+
+.fav-remove-btn {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.fav-remove-btn:hover {
+  opacity: 1;
+}
