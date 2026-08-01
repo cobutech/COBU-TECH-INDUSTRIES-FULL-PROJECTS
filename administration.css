@@ -652,3 +652,30 @@ body {
 .sidebar-nested-item.expanded > .sidebar-nested-submenu {
   display: block;
 }
+/* --- BACK BUTTON STYLES --- */
+.card-action-bar {
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #007bff;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background-color: rgba(0, 123, 255, 0.08);
+  border: 1px solid rgba(0, 123, 255, 0.25);
+  transition: all 0.2s ease-in-out;
+}
+
+.back-btn:hover {
+  background-color: rgba(0, 123, 255, 0.2);
+  color: #3395ff;
+  border-color: rgba(0, 123, 255, 0.5);
+  transform: translateX(-4px); /* Subtle slide to the left on hover */
+}
+
