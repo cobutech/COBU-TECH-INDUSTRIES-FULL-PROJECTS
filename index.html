@@ -30,12 +30,12 @@
       </div>
     </div>
 
-    <!-- CENTER SECTION (Brand Title top, Search Bar bottom) -->
+    <!-- CENTER SECTION (Brand Title, Search Bar, Quick Actions) -->
     <div class="header-center">
-      <!-- 3. Website Name (No container wrapper) -->
+      <!-- 3. Website Name -->
       <h1 class="brand-title">COBU-NET</h1>
 
-      <!-- 4. Search Bar Container (Width: 100px) -->
+      <!-- 4. Search Bar Container -->
       <div class="search-container glowing-container">
         <input type="text" placeholder="Search..." class="search-input" />
         <button class="search-btn" aria-label="Search">
@@ -45,11 +45,14 @@
           </svg>
         </button>
       </div>
+
+      <!-- 5. Quick Action Button Target -->
+      <div id="quick-action-target"></div>
     </div>
 
     <!-- RIGHT SECTION (Notification Bell top, Profile Picture bottom) -->
     <div class="header-right">
-      <!-- 5. Notification Bell (Unenclosed, yellow SVG) -->
+      <!-- 6. Notification Bell -->
       <div class="notification-wrapper" id="notification-btn">
         <svg class="bell-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -58,7 +61,7 @@
         <span class="notification-badge">3</span>
       </div>
 
-      <!-- 6. Profile Picture Container -->
+      <!-- 7. Profile Picture Container -->
       <div class="profile-container glowing-container">
         <img src="https://via.placeholder.com/45/ff4757/ffffff?text=Admin" alt="Admin Profile" class="circular-profile" />
       </div>
@@ -68,16 +71,10 @@
 
   <!-- BODY SECTION -->
   <div class="app-body">
-    <!-- Sidebar (Closed by default with 'collapsed') -->
+    <!-- Sidebar Panel (Closed by default with 'collapsed') -->
     <aside id="sidebar" class="sidebar collapsed">
-      <nav class="sidebar-nav">
-        <ul>
-          <li><a href="#" class="active">Dashboard</a></li>
-          <li><a href="#">Users</a></li>
-          <li><a href="#">Network</a></li>
-          <li><a href="#">Settings</a></li>
-        </ul>
-      </nav>
+      <!-- Dynamic Target for Sidebar Search & Menu (Generated via JS) -->
+      <div id="sidebar-nav-target"></div>
     </aside>
 
     <!-- Main Content Area -->
