@@ -8,7 +8,7 @@
 </head>
 <body>
 
-  <!-- HEADER (Identical to index.html) -->
+  <!-- HEADER -->
   <header class="app-header">
     
     <!-- LEFT SECTION -->
@@ -70,9 +70,21 @@
       <div id="sidebar-nav-target"></div>
     </aside>
 
-    <!-- MAIN CONTENT (Populated dynamically via JavaScript) -->
+    <!-- MAIN CONTENT -->
     <main class="main-content">
       <section class="content-card" id="dynamic-content-area">
+        
+        <!-- BACK BUTTON LINK -->
+        <div class="card-action-bar">
+          <a href="index.html" class="back-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Back to Dashboard</span>
+          </a>
+        </div>
+
         <h2 id="page-title">Loading...</h2>
         <p id="page-description">Select an option from the menu to load module details.</p>
       </section>
