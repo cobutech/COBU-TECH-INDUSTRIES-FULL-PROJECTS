@@ -11,14 +11,12 @@
   <!-- HEADER (Height: 130px) -->
   <header class="app-header">
     
-    <!-- LEFT SECTION (Logo top, Sidebar button bottom) -->
+    <!-- LEFT SECTION -->
     <div class="header-left">
-      <!-- 1. Web Logo Container (Square 70px) -->
       <div class="logo-container glowing-container">
         <img src="https://via.placeholder.com/70/007bff/ffffff?text=CN" alt="COBU-NET Logo" class="square-logo" />
       </div>
 
-      <!-- 2. Sidebar Button & Container -->
       <div class="sidebar-btn-container glowing-container">
         <button id="sidebar-toggle" class="sidebar-btn" aria-label="Toggle Sidebar">
           <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none">
@@ -30,12 +28,10 @@
       </div>
     </div>
 
-    <!-- CENTER SECTION (Brand Title, Search Bar, Quick Actions) -->
+    <!-- CENTER SECTION -->
     <div class="header-center">
-      <!-- 3. Website Name -->
       <h1 class="brand-title">COBU-NET</h1>
 
-      <!-- 4. Search Bar Container -->
       <div class="search-container glowing-container">
         <input type="text" placeholder="Search..." class="search-input" />
         <button class="search-btn" aria-label="Search">
@@ -46,13 +42,11 @@
         </button>
       </div>
 
-      <!-- 5. Quick Action Button Target -->
       <div id="quick-action-target"></div>
     </div>
 
-    <!-- RIGHT SECTION (Notification Bell top, Profile Picture bottom) -->
+    <!-- RIGHT SECTION -->
     <div class="header-right">
-      <!-- 6. Notification Bell -->
       <div class="notification-wrapper" id="notification-btn">
         <svg class="bell-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -61,7 +55,6 @@
         <span class="notification-badge">3</span>
       </div>
 
-      <!-- 7. Profile Picture Container -->
       <div class="profile-container glowing-container">
         <img src="https://via.placeholder.com/45/ff4757/ffffff?text=Admin" alt="Admin Profile" class="circular-profile" />
       </div>
@@ -71,17 +64,14 @@
 
   <!-- BODY SECTION -->
   <div class="app-body">
-    <!-- Sidebar Panel (Closed by default with 'collapsed') -->
     <aside id="sidebar" class="sidebar collapsed">
-      <!-- Dynamic Target for Sidebar Search & Menu (Generated via JS) -->
       <div id="sidebar-nav-target"></div>
     </aside>
 
-    <!-- Main Content Area -->
     <main class="main-content">
       <section class="content-card">
         <h2>Welcome to COBU-NET Admin Panel</h2>
-        <p>This is your main dashboard workspace.</p>
+        <p>Select an item from the sidebar to begin.</p>
       </section>
     </main>
   </div>
