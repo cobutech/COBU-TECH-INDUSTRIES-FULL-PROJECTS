@@ -530,3 +530,125 @@ body {
 .sidebar-submenu li a:hover {
   color: #00d2d3;
 }
+/* ==========================================================================
+   SIDEBAR & FAVORITES SPECIFIC STYLES
+   ========================================================================== */
+
+/* 1. Submenu Row Layout with Star/Delete Buttons */
+.submenu-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.submenu-item-row a {
+  color: #a0a5b5;
+  font-size: 0.78rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.submenu-item-row a:hover {
+  color: #00d2d3;
+}
+
+.inline-badge {
+  font-size: 0.55rem;
+  padding: 0 4px;
+}
+
+/* 2. Star Icon Styling */
+.star-btn {
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 2px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.star-btn svg {
+  fill: none;
+  stroke: #576574;
+  stroke-width: 2;
+  transition: fill 0.2s ease, stroke 0.2s ease;
+}
+
+.star-btn:hover svg {
+  stroke: #f1c40f;
+}
+
+/* Active Star State (Yellow) */
+.star-btn.active svg {
+  fill: #f1c40f;
+  stroke: #f1c40f;
+}
+
+/* 3. Favorites Remove Button (x) */
+.fav-remove-btn {
+  background: transparent;
+  border: none;
+  color: #ff6b6b;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 0 6px;
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.1s ease;
+}
+
+.fav-remove-btn:hover {
+  color: #ee5253;
+  transform: scale(1.2);
+}
+
+.empty-favs {
+  font-size: 0.72rem;
+  color: #576574;
+  font-style: italic;
+  padding: 6px 0;
+}
+
+/* 4. Nested 2nd-Level Dropdowns */
+.sidebar-nested-item {
+  margin: 4px 0;
+}
+
+.sidebar-nested-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #c8d6e5;
+  font-size: 0.78rem;
+  text-decoration: none;
+  padding: 4px 0;
+  font-weight: 500;
+}
+
+.nested-arrow {
+  font-size: 0.7rem;
+  color: #576574;
+  transition: transform 0.2s ease;
+}
+
+.sidebar-nested-item.expanded > .sidebar-nested-link .nested-arrow {
+  transform: rotate(-90deg);
+}
+
+.sidebar-nested-submenu {
+  display: none;
+  list-style: none;
+  padding-left: 14px;
+  margin-top: 2px;
+  border-left: 1px solid #1c2b4a;
+}
+
+.sidebar-nested-item.expanded > .sidebar-nested-submenu {
+  display: block;
+}
