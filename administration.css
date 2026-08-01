@@ -128,7 +128,7 @@ body {
 /* Search Bar (Width: 100px) */
 .search-container {
   margin-top: 18px;
-  width: 100px;
+  width: 150px;
   height: 20px;
   padding: 0 3px;
   display: flex;
@@ -275,4 +275,258 @@ body {
   font-size: 0.85rem;
   color: #7f8c8d;
   border-top: 1px solid #142042;
+}
+
+/* --- Quick Action Button & Dropdown Styles --- */
+.quick-action-wrapper {
+  margin-top: 18px; /* Gap positioned below search bar */
+  width: 80px;
+  height: 20px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.quick-action-btn {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 0.65rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 2px;
+}
+
+.qa-bolt {
+  color: #ffdd59;
+}
+
+.qa-arrow {
+  font-size: 0.5rem;
+  color: #8a8d9b;
+}
+
+/* Dropdown Menu (Matches your image sample) */
+.quick-action-dropdown {
+  display: none;
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  background-color: #0b1329;
+  border: 1px solid #1c2a4e;
+  border-radius: 6px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  padding: 8px 0;
+}
+
+.quick-action-dropdown.active {
+  display: block;
+}
+
+.qa-dropdown-header {
+  padding: 6px 12px;
+  font-size: 0.7rem;
+  color: #636e72;
+  font-weight: 600;
+}
+
+.qa-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  color: #dcdde1;
+  text-decoration: none;
+  font-size: 0.75rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.qa-dropdown-item:hover {
+  background-color: #14244d;
+  color: #00d2d3;
+}
+
+.qa-dropdown-item svg {
+  color: #8a8d9b;
+}
+
+.qa-dropdown-item:hover svg {
+  color: #00d2d3;
+}
+
+.qa-divider {
+  height: 1px;
+  background-color: #1c2a4e;
+  margin: 6px 0;
+}
+/* ==========================================================================
+   SIDEBAR COMPONENT STYLES (MATCHING IMAGE SPECIFICATIONS)
+   ========================================================================== */
+
+/* Enable Scrolling inside Sidebar */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: calc(100vh - 130px);
+}
+
+/* Custom Scrollbar for Sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: #0a1128;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: #1c2a4e;
+  border-radius: 4px;
+}
+
+/* 1. Sidebar Search Input Box */
+.sidebar-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #0b1426;
+  border: 1px solid #1c2b4a;
+  border-radius: 4px;
+  padding: 6px 10px;
+  margin-bottom: 12px;
+}
+
+.sidebar-search-box svg {
+  color: #636e72;
+  flex-shrink: 0;
+}
+
+#sidebar-menu-search {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #a0a5b5;
+  font-size: 0.8rem;
+  width: 100%;
+}
+
+#sidebar-menu-search::placeholder {
+  color: #636e72;
+}
+
+/* 2. Sidebar Menu List */
+.sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-item {
+  margin-bottom: 2px;
+}
+
+/* Link Base Style */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 10px;
+  color: #a0a5b5;
+  text-decoration: none;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-link:hover,
+.sidebar-link.active {
+  background-color: #142042;
+  color: #ffffff;
+}
+
+.sidebar-link-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-icon {
+  stroke: #8a8d9b;
+  flex-shrink: 0;
+}
+
+.sidebar-link:hover .sidebar-icon,
+.sidebar-link.active .sidebar-icon {
+  stroke: #00d2d3;
+}
+
+.sidebar-title {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.sidebar-link-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Arrow Styling */
+.sidebar-arrow {
+  font-size: 0.75rem;
+  color: #576574;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+  transform: rotate(0deg);
+}
+
+/* Rotates Arrow down when sub-menu is expanded */
+.sidebar-item.expanded .sidebar-arrow {
+  transform: rotate(-90deg);
+}
+
+/* Green [New] Badge */
+.badge-green {
+  background-color: #00b894;
+  color: #ffffff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+
+/* 3. Submenu Drawer */
+.sidebar-submenu {
+  display: none;
+  list-style: none;
+  padding-left: 36px;
+  margin-top: 2px;
+  margin-bottom: 4px;
+}
+
+.sidebar-item.expanded .sidebar-submenu {
+  display: block;
+}
+
+.sidebar-submenu li a {
+  display: block;
+  padding: 6px 0;
+  color: #7f8c8d;
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.sidebar-submenu li a:hover {
+  color: #00d2d3;
 }
