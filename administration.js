@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const quickActionTarget = document.getElementById('quick-action-target');
   const sidebarNavTarget = document.getElementById('sidebar-nav-target');
 
+  // --- Get Current Page ID from URL ---
+  const urlParams = new URLSearchParams(window.location.search);
+  const activePageId = urlParams.get('page') || 'dash';
+
   // --- 1. QUICK ACTION BUTTON RENDER ---
   if (quickActionTarget) {
     quickActionTarget.innerHTML = `
@@ -18,12 +22,12 @@ document.addEventListener('DOMContentLoaded', () => {
         </button>
         <div id="quick-action-dropdown" class="quick-action-dropdown">
           <div class="qa-dropdown-header">Your Shortcuts</div>
-          <a href="#" class="qa-dropdown-item">Activation</a>
-          <a href="#" class="qa-dropdown-item">Customers</a>
-          <a href="#" class="qa-dropdown-item">Prepaid Users</a>
-          <a href="#" class="qa-dropdown-item">Routers</a>
-          <a href="#" class="qa-dropdown-item">Online Users</a>
-          <a href="#" class="qa-dropdown-item">Active Sessions</a>
+          <a href="data-page.html?page=act-1" class="qa-dropdown-item">Activation</a>
+          <a href="data-page.html?page=cust-2" class="qa-dropdown-item">Customers</a>
+          <a href="data-page.html?page=act-2" class="qa-dropdown-item">Prepaid Users</a>
+          <a href="data-page.html?page=net-3" class="qa-dropdown-item">Routers</a>
+          <a href="data-page.html?page=act-5" class="qa-dropdown-item">Online Users</a>
+          <a href="data-page.html?page=set-8" class="qa-dropdown-item">Active Sessions</a>
         </div>
       </div>
     `;
@@ -43,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- 2. COMPLETE SIDEBAR MENU DATA ---
   const sidebarItemsData = [
-    { id: "dash", title: "Dashboard", icon: `<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>` },
+    { id: "dash", title: "Dashboard", icon: `<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>`, target: "index.html" },
     { id: "favs", title: "Favorites", icon: `<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>`, isFavoritesMenu: true },
     { id: "admin", title: "Admin", icon: `<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>`, children: [
       { id: "admin-add", title: "Add New Admin", starred: false },
@@ -271,13 +275,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Helper function to find subitem by ID
   function findSubItem(itemId) {
     for (const cat of sidebarItemsData) {
+      if (cat.id === itemId) return { ...cat, parentId: cat.id };
       if (!cat.children) continue;
       for (const child of cat.children) {
         if (child.isNested && child.children) {
           const nestedMatch = child.children.find(nc => nc.id === itemId);
-          if (nestedMatch) return nestedMatch;
+          if (nestedMatch) return { ...nestedMatch, parentId: cat.id, nestedParentId: child.id };
         } else if (child.id === itemId) {
-          return child;
+          return { ...child, parentId: cat.id };
         }
       }
     }
@@ -297,12 +302,13 @@ document.addEventListener('DOMContentLoaded', () => {
       <ul class="sidebar-menu" id="sidebar-menu-list">
     `;
 
-    sidebarItemsData.forEach((item, idx) => {
+    sidebarItemsData.forEach((item) => {
       const hasChildren = item.children && item.children.length > 0;
+      const href = item.target ? item.target : (hasChildren || item.isFavoritesMenu ? '#' : `data-page.html?page=${item.id}`);
 
       sidebarHTML += `
         <li class="sidebar-item" data-item-id="${item.id}">
-          <a href="#" class="sidebar-link ${idx === 0 ? 'active' : ''}" data-has-dropdown="${hasChildren}">
+          <a href="${href}" class="sidebar-link ${item.id === activePageId ? 'active' : ''}" data-has-dropdown="${hasChildren}">
             <div class="sidebar-link-left">
               <svg class="sidebar-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
                 ${item.icon}
@@ -327,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
         item.children.forEach(child => {
           if (child.isNested) {
             sidebarHTML += `
-              <li class="sidebar-nested-item">
+              <li class="sidebar-nested-item" data-nested-id="${child.id}">
                 <a href="#" class="sidebar-nested-link">
                   <span>${child.title}</span>
                   <span class="nested-arrow">&lt;</span>
@@ -338,7 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
               sidebarHTML += `
                 <li>
                   <div class="submenu-item-row">
-                    <a href="#">${nChild.title}</a>
+                    <a href="data-page.html?page=${nChild.id}" class="${nChild.id === activePageId ? 'active' : ''}">${nChild.title}</a>
                     <button class="star-btn ${nChild.starred ? 'active' : ''}" data-id="${nChild.id}" aria-label="Favorite">
                       <svg viewBox="0 0 24 24" width="14" height="14">
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
@@ -353,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebarHTML += `
               <li>
                 <div class="submenu-item-row">
-                  <a href="#">
+                  <a href="data-page.html?page=${child.id}" class="${child.id === activePageId ? 'active' : ''}">
                     ${child.title}
                     ${child.badge ? `<span class="badge-green inline-badge">${child.badge}</span>` : ''}
                   </a>
@@ -377,17 +383,43 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebarHTML += `</ul>`;
     sidebarNavTarget.innerHTML = sidebarHTML;
 
-    // Attach Event Listeners
+    // Attach Event Listeners & Expand Active Category
     attachNavigationListeners();
     renderFavoritesList();
+    autoExpandActiveParent();
   }
 
-  // --- 4. FAVORITES RENDER & UPDATER ---
+  // --- 4. AUTO-EXPAND ACTIVE CATEGORY ---
+  function autoExpandActiveParent() {
+    const activeItem = findSubItem(activePageId);
+    if (!activeItem) return;
+
+    if (activeItem.parentId) {
+      const parentLi = document.querySelector(`.sidebar-item[data-item-id="${activeItem.parentId}"]`);
+      if (parentLi) parentLi.classList.add('expanded');
+    }
+
+    if (activeItem.nestedParentId) {
+      const nestedLi = document.querySelector(`.sidebar-nested-item[data-nested-id="${activeItem.nestedParentId}"]`);
+      if (nestedLi) nestedLi.classList.add('expanded');
+    }
+
+    // Render title in data-page.html
+    const pageTitleEl = document.getElementById('page-title');
+    const pageDescEl = document.getElementById('page-description');
+    if (pageTitleEl) {
+      pageTitleEl.textContent = activeItem.title;
+    }
+    if (pageDescEl) {
+      pageDescEl.textContent = `Management and configuration controls for ${activeItem.title}.`;
+    }
+  }
+
+  // --- 5. FAVORITES RENDER & UPDATER ---
   function renderFavoritesList() {
     const favSubmenu = document.getElementById('favorites-submenu-list');
     if (!favSubmenu) return;
 
-    // Gather all starred items
     const starredItems = [];
     sidebarItemsData.forEach(cat => {
       if (!cat.children) return;
@@ -412,7 +444,7 @@ document.addEventListener('DOMContentLoaded', () => {
       favHTML += `
         <li>
           <div class="submenu-item-row">
-            <a href="#">${item.title}</a>
+            <a href="data-page.html?page=${item.id}">${item.title}</a>
             <button class="fav-remove-btn" data-id="${item.id}" title="Remove from favorites">&times;</button>
           </div>
         </li>
@@ -421,7 +453,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     favSubmenu.innerHTML = favHTML;
 
-    // Event listener for remove buttons inside Favorites
     favSubmenu.querySelectorAll('.fav-remove-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -429,7 +460,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const targetItem = findSubItem(id);
         if (targetItem) {
           targetItem.starred = false;
-          // Update corresponding star icon state in DOM
           const starIcon = document.querySelector(`.star-btn[data-id="${id}"]`);
           if (starIcon) starIcon.classList.remove('active');
           renderFavoritesList();
@@ -438,9 +468,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 5. EVENT LISTENERS ---
+  // --- 6. EVENT LISTENERS ---
   function attachNavigationListeners() {
-    // 1st Level Dropdowns
     const topLinks = document.querySelectorAll('.sidebar-link[data-has-dropdown="true"], .sidebar-item[data-item-id="favs"] > .sidebar-link');
     topLinks.forEach(link => {
       link.addEventListener('click', (e) => {
@@ -450,7 +479,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Nested 2nd Level Dropdowns (e.g. Withdraw & SMS/Whatsapp)
     const nestedLinks = document.querySelectorAll('.sidebar-nested-link');
     nestedLinks.forEach(link => {
       link.addEventListener('click', (e) => {
@@ -461,7 +489,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Star Click Handling
     const starBtns = document.querySelectorAll('.star-btn');
     starBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -477,7 +504,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Live Search Filter Logic
     const searchInput = document.getElementById('sidebar-menu-search');
     if (searchInput) {
       searchInput.addEventListener('input', (e) => {
@@ -496,7 +522,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Toggle Sidebar Collapse
   if (sidebarToggle && sidebar) {
     sidebarToggle.addEventListener('click', () => {
       sidebar.classList.toggle('collapsed');
@@ -512,4 +537,3 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial Render Call
   renderSidebar();
 });
-
