@@ -750,3 +750,220 @@ body {
 .fav-remove-btn:hover {
   opacity: 1;
 }
+
+/* ==========================================================================
+   DASHBOARD DATA USAGE & TOP USERS LAYOUT
+   ========================================================================== */
+
+/* Responsive Grid Layout: Vertical on Mobile, Side-by-Side on Desktop */
+.dashboard-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+@media (min-width: 992px) {
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+}
+
+/* Outer Rainbow Gradient Border Cards matching image design */
+.rainbow-border-card {
+  background: linear-gradient(#080f24, #080f24) padding-box,
+              linear-gradient(135deg, #007bff, #a020f0, #ff4757) border-box;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Card Headers & Legends */
+.dash-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+}
+
+.dash-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.chart-legend {
+  display: flex;
+  gap: 12px;
+  font-size: 0.75rem;
+  color: #a0a5b5;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-box {
+  width: 12px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.legend-box.upload {
+  background-color: #00a8ff;
+}
+
+.legend-box.download {
+  background-color: #00e676;
+}
+
+/* Sub-card styling inside main containers */
+.chart-subcard,
+.top-users-subcard {
+  background-color: #0b152e;
+  border: 1px solid #142247;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.chart-subcard-header,
+.top-users-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.chart-subcard-header h3,
+.top-users-header h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.chart-subtext {
+  font-size: 0.68rem;
+  color: #636e72;
+}
+
+.date-badge {
+  background-color: #060b1a;
+  border: 1px solid #1c2b4a;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  color: #00d2d3;
+}
+
+/* --- Bar Chart Rendering --- */
+.chart-container {
+  display: flex;
+  height: 140px;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  font-size: 0.62rem;
+  color: #7f8c8d;
+  padding-right: 6px;
+  border-right: 1px solid #142247;
+  text-align: right;
+  min-width: 45px;
+}
+
+.chart-bars-area {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 100%;
+  padding-bottom: 20px;
+  position: relative;
+}
+
+.bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: flex-end;
+  position: relative;
+  width: 40px;
+}
+
+.bars-pair {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+}
+
+.bar {
+  width: 8px;
+  border-radius: 2px 2px 0 0;
+  transition: height 0.3s ease;
+}
+
+.bar.upload {
+  background-color: #00a8ff;
+  box-shadow: 0 0 4px rgba(0, 168, 255, 0.4);
+}
+
+.bar.download {
+  background-color: #00e676;
+  box-shadow: 0 0 4px rgba(0, 230, 118, 0.4);
+}
+
+.x-label {
+  position: absolute;
+  bottom: -18px;
+  font-size: 0.68rem;
+  color: #7f8c8d;
+}
+
+/* --- Top Users Table Styling --- */
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+}
+
+.users-table th {
+  text-align: left;
+  padding: 6px 8px;
+  color: #636e72;
+  font-weight: 600;
+  font-size: 0.68rem;
+  border-bottom: 1px solid #142247;
+}
+
+.users-table td {
+  padding: 8px;
+  color: #dcdde1;
+  border-bottom: 1px solid #0e1a38;
+}
+
+.users-table tr:last-child td {
+  border-bottom: none;
+}
+
+.users-table td:last-child,
+.users-table th:last-child {
+  text-align: right;
+}
