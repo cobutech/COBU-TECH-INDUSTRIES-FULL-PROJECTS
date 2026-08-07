@@ -333,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return count;
   }
 
-  // --- 3. DYNAMIC RENDERER ---
+  // --- 3. DYNAMIC RENDERER FOR SIDEBAR ---
   function renderSidebar() {
     let sidebarHTML = `
       <div class="sidebar-search-box">
@@ -597,6 +597,251 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Initial Render Call
+  // --- 7. DYNAMIC MAIN DASHBOARD SECTIONS (DATA USAGE & TOP 5 USERS) ---
+  function renderDashboardSections() {
+    const mainContent = document.querySelector('.main-content');
+    if (!mainContent) return;
+
+    if (activePageId === 'dash') {
+      mainContent.innerHTML = `
+        <div class="dashboard-grid">
+          
+          <!-- SECTION 1: DATA USAGE -->
+          <div class="rainbow-border-card">
+            <div class="dash-card-header">
+              <h2 class="dash-card-title">Data Usage</h2>
+              <div class="chart-legend">
+                <span class="legend-item"><span class="legend-box upload"></span> Upload</span>
+                <span class="legend-item"><span class="legend-box download"></span> Download</span>
+              </div>
+            </div>
+
+            <!-- Today's Usage -->
+            <div class="chart-subcard">
+              <div class="chart-subcard-header">
+                <h3>Today's Usage</h3>
+                <span class="chart-subtext">x-axis: 1 hour / 10 boxes · y-axis: 500 KB / 10 boxes</span>
+              </div>
+              <div class="chart-container">
+                <div class="y-axis">
+                  <span>600KB</span>
+                  <span>480KB</span>
+                  <span>360KB</span>
+                  <span>240KB</span>
+                  <span>120KB</span>
+                  <span>0KB</span>
+                </div>
+                <div class="chart-bars-area">
+                  <div class="bar-group">
+                    <div class="bars-pair">
+                      <div class="bar upload" style="height: 5%;"></div>
+                      <div class="bar download" style="height: 90%;"></div>
+                    </div>
+                    <span class="x-label">0h</span>
+                  </div>
+                  <div class="bar-group">
+                    <div class="bars-pair">
+                      <div class="bar upload" style="height: 30%;"></div>
+                      <div class="bar download" style="height: 20%;"></div>
+                    </div>
+                    <span class="x-label">1h</span>
+                  </div>
+                  <div class="bar-group">
+                    <div class="bars-pair">
+                      <div class="bar upload" style="height: 25%;"></div>
+                      <div class="bar download" style="height: 80%;"></div>
+                    </div>
+                    <span class="x-label">2h</span>
+                  </div>
+                  <div class="bar-group">
+                    <div class="bars-pair">
+                      <div class="bar upload" style="height: 12%;"></div>
+                      <div class="bar download" style="height: 3%;"></div>
+                    </div>
+                    <span class="x-label">3h</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Weekly Usage -->
+            <div class="chart-subcard">
+              <div class="chart-subcard-header">
+                <h3>Weekly Usage</h3>
+                <span class="chart-subtext">x-axis: days · y-axis: 500 KB / 10 boxes</span>
+              </div>
+              <div class="chart-container">
+                <div class="y-axis">
+                  <span>5MB</span>
+                  <span>4MB</span>
+                  <span>3MB</span>
+                  <span>2MB</span>
+                  <span>1MB</span>
+                  <span>0KB</span>
+                </div>
+                <div class="chart-bars-area">
+                  <div class="bar-group">
+                    <div class="bars-pair">
+                      <div class="bar upload" style="height: 32%;"></div>
+                      <div class="bar download" style="height: 78%;"></div>
+                    </div>
+                    <span class="x-label">Mon</span>
+                  </div>
+                  <div class="bar-group">
+                    <div class="bars-pair">
+                      <div class="bar upload" style="height: 20%;"></div>
+                      <div class="bar download" style="height: 48%;"></div>
+                    </div>
+                    <span class="x-label">Tue</span>
+                  </div>
+                  <div class="bar-group">
+                    <div class="bars-pair">
+                      <div class="bar upload" style="height: 12%;"></div>
+                      <div class="bar download" style="height: 34%;"></div>
+                    </div>
+                    <span class="x-label">Wed</span>
+                  </div>
+                  <div class="bar-group">
+                    <div class="bars-pair">
+                      <div class="bar upload" style="height: 24%;"></div>
+                      <div class="bar download" style="height: 14%;"></div>
+                    </div>
+                    <span class="x-label">Thu</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Monthly Usage -->
+            <div class="chart-subcard">
+              <div class="chart-subcard-header">
+                <h3>Monthly Usage</h3>
+                <span class="chart-subtext">x-axis: months · y-axis: 500 KB / 10 boxes</span>
+              </div>
+              <div class="chart-container">
+                <div class="y-axis">
+                  <span>20MB</span>
+                  <span>16MB</span>
+                  <span>12MB</span>
+                  <span>8MB</span>
+                  <span>4MB</span>
+                  <span>0KB</span>
+                </div>
+                <div class="chart-bars-area">
+                  <div class="bar-group">
+                    <div class="bars-pair">
+                      <div class="bar upload" style="height: 12%;"></div>
+                      <div class="bar download" style="height: 20%;"></div>
+                    </div>
+                    <span class="x-label">Jan</span>
+                  </div>
+                  <div class="bar-group">
+                    <div class="bars-pair">
+                      <div class="bar upload" style="height: 10%;"></div>
+                      <div class="bar download" style="height: 22%;"></div>
+                    </div>
+                    <span class="x-label">Feb</span>
+                  </div>
+                  <div class="bar-group">
+                    <div class="bars-pair">
+                      <div class="bar upload" style="height: 4%;"></div>
+                      <div class="bar download" style="height: 75%;"></div>
+                    </div>
+                    <span class="x-label">Mar</span>
+                  </div>
+                  <div class="bar-group">
+                    <div class="bars-pair">
+                      <div class="bar upload" style="height: 30%;"></div>
+                      <div class="bar download" style="height: 25%;"></div>
+                    </div>
+                    <span class="x-label">Apr</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- SECTION 2: TOP 5 DATA USERS -->
+          <div class="rainbow-border-card">
+            <div class="dash-card-header">
+              <h2 class="dash-card-title">Top 5 Data Users</h2>
+            </div>
+
+            <!-- Today -->
+            <div class="top-users-subcard">
+              <div class="top-users-header">
+                <h3>Today</h3>
+                <span class="date-badge">Friday, 7 Aug 2026</span>
+              </div>
+              <table class="users-table">
+                <thead>
+                  <tr>
+                    <th>USERNAME</th>
+                    <th>DOWNLOAD</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>1. user042</td><td>4.2 GB</td></tr>
+                  <tr><td>2. user017</td><td>3.8 GB</td></tr>
+                  <tr><td>3. user093</td><td>3.1 GB</td></tr>
+                  <tr><td>4. user006</td><td>2.9 GB</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Weekly -->
+            <div class="top-users-subcard">
+              <div class="top-users-header">
+                <h3>Weekly</h3>
+                <span class="date-badge">Week 1 · 2 Aug – 8 Aug</span>
+              </div>
+              <table class="users-table">
+                <thead>
+                  <tr>
+                    <th>USERNAME</th>
+                    <th>DOWNLOAD</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>1. user017</td><td>28.1 GB</td></tr>
+                  <tr><td>2. user093</td><td>24.7 GB</td></tr>
+                  <tr><td>3. user042</td><td>22.3 GB</td></tr>
+                  <tr><td>4. user031</td><td>19.8 GB</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Monthly -->
+            <div class="top-users-subcard">
+              <div class="top-users-header">
+                <h3>Monthly</h3>
+                <span class="date-badge">August 2026</span>
+              </div>
+              <table class="users-table">
+                <thead>
+                  <tr>
+                    <th>USERNAME</th>
+                    <th>DOWNLOAD</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>1. user093</td><td>112 GB</td></tr>
+                  <tr><td>2. user017</td><td>98 GB</td></tr>
+                  <tr><td>3. user042</td><td>87 GB</td></tr>
+                  <tr><td>4. user031</td><td>74 GB</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </div>
+      `;
+    }
+  }
+
+  // Initial Render Calls
   renderSidebar();
+  renderDashboardSections();
 });
